@@ -11,7 +11,8 @@ class APIController extends Controller
 {
     public function handleRequest(Request $request){
         $method = $request->method();
-        $endpoint = env('API_BASE_URL').str_replace(env('APP_URL').'/api/v1/','/',$request->fullUrl());
+        $current_url_array = explode('/api/v1',$request->fullUrl());
+        $endpoint = env('API_BASE_URL').end($current_url_array);
         $headers = [];
 
         if($request->header('authorization')){
@@ -33,7 +34,7 @@ class APIController extends Controller
                 break;
             default;
         }
-        
+
         $body = $response->json() ?? null;
         $status = $response->status() ?? 404;
 
