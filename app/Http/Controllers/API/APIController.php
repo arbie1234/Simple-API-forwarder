@@ -32,6 +32,9 @@ class APIController extends Controller
             case 'PATCH':
                 $response = Http::withHeaders($headers)->patch($endpoint,$request->all());
                 break;
+            case 'DELETE':
+                $response = Http::withHeaders($headers)->delete();
+                break;
             default;
         }
 
